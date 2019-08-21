@@ -44,7 +44,6 @@ def processCss(inputFile, outputFile):
 			currentCssElement = ""
 		else:
 			currentCssElement += line
-
 			
 	newCssFile = open(outputFile + "-sorted" + ".css", "w")
 	for key in sorted(dictOfLines):
