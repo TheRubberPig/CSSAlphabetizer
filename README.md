@@ -9,5 +9,5 @@ How to run:
 
 - Drop the python script into the directory where the CSS file is located
 - Open a command window
-- Run the command cssSorter.py -i <inputfile name> -o <outputfile name>
+- Run the command cssSorter.py -i (inputfile name) -o (outputfile name)
 - Check the directory for your new Alphabetised CSS file!
