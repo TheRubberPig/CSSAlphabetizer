@@ -1,5 +1,6 @@
 import sys, getopt
 
+# Run this script in the same directory of the css file
 def main(argv):
 	inputFile = ""
 	outputFile = ""
@@ -16,7 +17,6 @@ def main(argv):
 			inputFile = arg
 		elif opt in ("-o", "--ofile"):
 			outputFile = arg
-	# Run this script in the same directory of the css file
 	processCss(inputFile, outputFile)
 	
 def processCss(inputFile, outputFile):
@@ -33,8 +33,11 @@ def processCss(inputFile, outputFile):
 			dictOfLines[line] = ""
 			currentKey = line
 		elif "}" in line:
+			# The last element in the file might not have a new line when inserted higher up in the file
+			# This keeps the formatting consistent
 			if "\n" not in line:
-				line = line + "\n"
+				line += "\n"
+				
 			currentCssElement += line
 			dictOfLines[currentKey] = currentCssElement
 			currentKey = ""
