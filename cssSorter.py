@@ -20,13 +20,17 @@ def main(argv):
 	processCss(inputFile, outputFile)
 	
 def processCss(inputFile, outputFile):
-	cssFile = open(inputFile + ".css", "r")
-	lines = cssFile.readlines()
 	dictOfLines = { }
 	currentKey = ""
 	currentCssElement = ""
-	# Loop through the file and break it down into each element
-	for line in lines:
+	checkFileNames(inputFile, outputFile)
+	try:
+		cssFile = open(inputFile + ".css", "r")
+	except:
+		print("Could not find the file " + inputFile + ".css in the current directory.\nPlease ensure the spelling of the file name is correct")
+		sys.exit(2)
+	linesInCssFile = cssFile.readlines()
+	for line in linesInCssFile:
 		# if there is a "{" we are at the start of a new element
 		if "{" in line:
 			#set up key in dict
@@ -45,13 +49,23 @@ def processCss(inputFile, outputFile):
 		else:
 			currentCssElement += line
 			
-	newCssFile = open(outputFile + "-sorted" + ".css", "w")
+	newCssFile = open(outputFile + ".css", "w")
 	for key in sorted(dictOfLines):
 		newCssFile.write(key)
 		newCssFile.write(dictOfLines[key])
 		
+	print("New CSS file " + outputFile + ".css created!")
 	newCssFile.close()
 	cssFile.close()
+	
+def checkFileNames(inputFile, outputFile):
+	if inputFile == "":
+		print("Please provide an input file name\nUse the format cssSorter.py -i <inputfile> -o <outputfile>")
+		sys.exit()
+	elif outputFile == "":
+		print("Please provide an output file name\nUse the format cssSorter.py -i <inputfile> -o <outputfile>")
+		sys.exit()
+	
 	
 if __name__ == "__main__":
 	main(sys.argv[1:])
